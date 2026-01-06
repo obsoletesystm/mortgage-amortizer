@@ -286,26 +286,36 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-4 sm:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Mobile Header with Hamburger */}
-        <div className="flex items-center justify-between mb-4 lg:mb-0">
-          <div className="flex-1">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 text-blue-400">Canadian Mortgage Amortizer</h1>
-            <p className="text-sm sm:text-base text-gray-400 mb-2 lg:mb-8">Calculate amortization schedules with semi-annual compounding and multiple renewal periods</p>
-          </div>
+    <div className="min-h-screen bg-gray-900 text-gray-100">
+      {/* Mobile Topbar - Sticky on mobile, static on desktop */}
+      <div className="sticky top-0 z-30 bg-gray-900 lg:static lg:bg-transparent">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between py-3 lg:py-0 lg:mb-2 border-b border-gray-800 lg:border-0">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-lg sm:text-2xl lg:text-4xl font-bold text-blue-400 truncate">
+                Canadian Mortgage Amortizer
+              </h1>
+              <p className="hidden lg:block text-gray-400 mt-2 mb-8">
+                Calculate amortization schedules with semi-annual compounding and multiple renewal periods
+              </p>
+            </div>
 
-          {/* Hamburger Menu Button - Mobile Only */}
-          <button
-            onClick={() => setIsMobileMenuOpen(true)}
-            className="lg:hidden p-2 rounded-lg bg-gray-800 hover:bg-gray-700 active:bg-gray-600 touch-manipulation ml-4"
-            aria-label="Open menu"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+            {/* Hamburger Menu Button - Mobile Only */}
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="lg:hidden flex-shrink-0 p-2 ml-3 rounded-lg bg-gray-800 hover:bg-gray-700 active:bg-gray-600 touch-manipulation"
+              aria-label="Open menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
         </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-0">
 
         {/* Mobile Menu Overlay */}
         {isMobileMenuOpen && (
