@@ -50,8 +50,36 @@ function App() {
     };
   }, [isMobileMenuOpen]);
 
-  // Load profile from URL parameter on mount
+  // Load profile from URL parameter or hash on mount
   useEffect(() => {
+    // First, try to load from URL hash (shared data)
+    const hash = window.location.hash.substring(1); // Remove the # character
+    if (hash) {
+      try {
+        const decoded = JSON.parse(atob(hash));
+        // Load the shared data
+        setPurchasePrice(decoded.purchasePrice);
+        setDownPaymentPercent(decoded.downPaymentPercent);
+        setAdditionalFinancing(decoded.additionalFinancing || 0);
+        setCmhcPstRate(decoded.cmhcPstRate || 0);
+        setAmortizationYears(decoded.amortizationYears);
+        setPaymentFrequency(decoded.paymentFrequency);
+        setStartDate(decoded.startDate);
+        setRenewalPeriods(decoded.renewalPeriods);
+        setAdditionalPayments(decoded.additionalPayments || []);
+        if (decoded.prepaymentLimits) {
+          setEnablePrepaymentLimits(true);
+          setPrepaymentLimits(decoded.prepaymentLimits);
+        }
+        return; // Don't check for profile ID if hash was loaded
+      } catch (error) {
+        console.error('Failed to load shared data from URL:', error);
+        // Clear invalid hash
+        window.history.replaceState({}, '', window.location.pathname + window.location.search);
+      }
+    }
+
+    // Fallback: try to load from profile ID (localStorage)
     const urlParams = new URLSearchParams(window.location.search);
     const profileId = urlParams.get('profile');
 
@@ -218,18 +246,30 @@ function App() {
   };
 
   const handleShareProfile = () => {
-    if (!currentProfileId) {
-      alert('Please load or save a profile first');
-      return;
-    }
+    // Encode current state into URL for sharing
+    const profileData = {
+      purchasePrice,
+      downPaymentPercent,
+      additionalFinancing,
+      cmhcPstRate,
+      amortizationYears,
+      paymentFrequency,
+      startDate,
+      renewalPeriods,
+      additionalPayments,
+      prepaymentLimits: enablePrepaymentLimits ? prepaymentLimits : undefined,
+    };
 
+    // Encode as base64 in URL hash
+    const encoded = btoa(JSON.stringify(profileData));
     const url = new URL(window.location.href);
-    url.searchParams.set('profile', currentProfileId);
+    url.hash = encoded;
+    url.searchParams.delete('profile'); // Remove old profile param if exists
 
     navigator.clipboard.writeText(url.toString()).then(() => {
-      alert('Profile URL copied to clipboard!');
+      alert('Shareable URL copied to clipboard! Anyone can open this link to load your mortgage calculation.');
     }).catch(() => {
-      alert('Failed to copy URL. Your profile URL is:\n' + url.toString());
+      alert('Failed to copy URL. Your shareable URL is:\n' + url.toString());
     });
   };
 
@@ -378,25 +418,28 @@ function App() {
                 )}
               </div>
 
+              <div className="flex gap-2 mt-3">
+                <button
+                  onClick={handleShareProfile}
+                  className="flex-1 px-2 py-1 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded text-xs touch-manipulation"
+                >
+                  📋 Copy Share Link
+                </button>
+                {currentProfileId && (
+                  <button
+                    onClick={handleClearProfile}
+                    className="flex-1 px-2 py-1 bg-gray-600 hover:bg-gray-700 active:bg-gray-800 rounded text-xs touch-manipulation"
+                  >
+                    Clear Profile
+                  </button>
+                )}
+              </div>
+
               {currentProfileId && (
-                <div className="space-y-2">
+                <div className="mt-2">
                   <div className="text-xs text-green-400 flex items-center gap-1">
                     <span>✓</span>
                     <span>Loaded: {savedProfiles.find(p => p.id === currentProfileId)?.name}</span>
-                  </div>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={handleShareProfile}
-                      className="flex-1 px-2 py-1 bg-blue-600 hover:bg-blue-700 rounded text-xs"
-                    >
-                      Share URL
-                    </button>
-                    <button
-                      onClick={handleClearProfile}
-                      className="flex-1 px-2 py-1 bg-gray-600 hover:bg-gray-700 rounded text-xs"
-                    >
-                      Clear Profile
-                    </button>
                   </div>
                 </div>
               )}
