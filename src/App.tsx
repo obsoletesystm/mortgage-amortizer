@@ -268,22 +268,22 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
+    <div className="min-h-screen bg-gray-900 text-gray-100 p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold mb-2 text-blue-400">Canadian Mortgage Amortizer</h1>
-        <p className="text-gray-400 mb-8">Calculate amortization schedules with semi-annual compounding and multiple renewal periods</p>
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 text-blue-400">Canadian Mortgage Amortizer</h1>
+        <p className="text-sm sm:text-base text-gray-400 mb-6 lg:mb-8">Calculate amortization schedules with semi-annual compounding and multiple renewal periods</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Input Panel */}
-          <div className="lg:col-span-1 bg-gray-800 rounded-lg p-6 shadow-lg">
-            <h2 className="text-2xl font-semibold mb-4 text-blue-300">Mortgage Details</h2>
+          <div className="lg:col-span-1 bg-gray-800 rounded-lg p-4 sm:p-6 shadow-lg">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-blue-300">Mortgage Details</h2>
 
             {/* Profile Management */}
-            <div className="mb-6 p-4 bg-gray-700 rounded">
-              <div className="flex gap-2 mb-3">
+            <div className="mb-6 p-3 sm:p-4 bg-gray-700 rounded">
+              <div className="flex flex-col sm:flex-row gap-2 mb-3">
                 <button
                   onClick={handleOpenSaveDialog}
-                  className="flex-1 px-3 py-2 bg-green-600 hover:bg-green-700 rounded text-sm font-medium"
+                  className="flex-1 px-4 py-3 sm:py-2 bg-green-600 hover:bg-green-700 active:bg-green-800 rounded text-sm font-medium touch-manipulation"
                 >
                   {currentProfileId ? 'Update Profile' : 'Save Profile'}
                 </button>
@@ -291,7 +291,7 @@ function App() {
                   <select
                     onChange={(e) => e.target.value && handleLoadProfile(e.target.value)}
                     value=""
-                    className="flex-1 px-3 py-2 bg-gray-600 border border-gray-500 rounded text-sm"
+                    className="flex-1 px-4 py-3 sm:py-2 bg-gray-600 border border-gray-500 rounded text-sm touch-manipulation"
                   >
                     <option value="">Load Profile...</option>
                     {savedProfiles.map((profile) => (
@@ -729,7 +729,7 @@ function App() {
 
               <button
                 onClick={handleCalculate}
-                className="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded font-semibold text-lg mt-6"
+                className="w-full py-4 sm:py-3 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded font-semibold text-lg mt-6 touch-manipulation"
               >
                 Calculate Schedule
               </button>
@@ -741,12 +741,12 @@ function App() {
             {schedule && (
               <div className="space-y-6">
                 {/* Summary */}
-                <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
-                  <h2 className="text-2xl font-semibold mb-4 text-blue-300">Summary</h2>
+                <div className="bg-gray-800 rounded-lg p-4 sm:p-6 shadow-lg">
+                  <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-blue-300">Summary</h2>
 
                   <div className="mb-6 pb-4 border-b border-gray-700">
                     <h3 className="text-sm font-medium text-gray-400 mb-3">Purchase Details</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                       <div>
                         <p className="text-sm text-gray-400">Purchase Price</p>
                         <p className="text-xl font-semibold">${schedule.summary.purchasePrice.toLocaleString('en-CA')}</p>
@@ -786,7 +786,7 @@ function App() {
 
                   <div>
                     <h3 className="text-sm font-medium text-gray-400 mb-3">Payment Details</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                       <div>
                         <p className="text-sm text-gray-400">Total Interest</p>
                         <p className="text-xl font-semibold text-red-400">${schedule.summary.totalInterestPaid.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
@@ -817,7 +817,7 @@ function App() {
                   {schedule.summary.totalAdditionalPayments > 0 && (
                     <div className="pt-4 border-t border-gray-700">
                       <h3 className="text-sm font-medium text-gray-400 mb-3">Additional Payment Savings</h3>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                         <div>
                           <p className="text-sm text-gray-400">Total Additional Payments</p>
                           <p className="text-xl font-semibold text-blue-400">${schedule.summary.totalAdditionalPayments.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
@@ -853,22 +853,22 @@ function App() {
                     </div>
                   )}
 
-                  <div className="flex flex-wrap gap-3 mt-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
                     <button
                       onClick={handleExportCSV}
-                      className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded font-medium"
+                      className="px-4 py-3 sm:py-2 bg-green-600 hover:bg-green-700 active:bg-green-800 rounded font-medium touch-manipulation"
                     >
                       Export CSV
                     </button>
                     <button
                       onClick={handleExportPDF}
-                      className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded font-medium"
+                      className="px-4 py-3 sm:py-2 bg-red-600 hover:bg-red-700 active:bg-red-800 rounded font-medium touch-manipulation"
                     >
                       Export PDF
                     </button>
                     <button
                       onClick={handleExportJSON}
-                      className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded font-medium"
+                      className="px-4 py-3 sm:py-2 bg-purple-600 hover:bg-purple-700 active:bg-purple-800 rounded font-medium touch-manipulation"
                     >
                       Export JSON
                     </button>
@@ -876,11 +876,13 @@ function App() {
                 </div>
 
                 {/* Payment Schedule */}
-                <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
-                  <h2 className="text-2xl font-semibold mb-4 text-blue-300">Payment Schedule</h2>
+                <div className="bg-gray-800 rounded-lg p-4 sm:p-6 shadow-lg">
+                  <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-blue-300">Payment Schedule</h2>
 
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
+                  <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+                    <div className="inline-block min-w-full align-middle">
+                      <div className="text-xs sm:text-sm text-gray-400 mb-2 sm:hidden">← Scroll to see more →</div>
+                      <table className="min-w-full text-xs sm:text-sm">
                       <thead className="bg-gray-700">
                         <tr>
                           <th className="px-3 py-2 text-left">#</th>
@@ -925,7 +927,8 @@ function App() {
                           </tr>
                         ))}
                       </tbody>
-                    </table>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- House shape -->
+  <path d="M50 15 L85 45 L85 85 L15 85 L15 45 Z" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+  <!-- Door -->
+  <rect x="42" y="60" width="16" height="25" fill="#1e40af"/>
+  <!-- Window left -->
+  <rect x="25" y="50" width="12" height="12" fill="#dbeafe" stroke="#1e40af" stroke-width="1"/>
+  <!-- Window right -->
+  <rect x="63" y="50" width="12" height="12" fill="#dbeafe" stroke="#1e40af" stroke-width="1"/>
+  <!-- Dollar sign -->
+  <text x="50" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#fbbf24" text-anchor="middle">$</text>
+</svg>
