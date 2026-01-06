@@ -366,7 +366,7 @@ function App() {
                   <select
                     onChange={(e) => e.target.value && handleLoadProfile(e.target.value)}
                     value=""
-                    className="flex-1 px-4 py-3 sm:py-2 bg-gray-600 border border-gray-500 rounded text-sm touch-manipulation"
+                    className="flex-1 min-w-0 px-4 py-3 sm:py-2 bg-gray-600 border border-gray-500 rounded text-sm touch-manipulation"
                   >
                     <option value="">Load Profile...</option>
                     {savedProfiles.map((profile) => (
