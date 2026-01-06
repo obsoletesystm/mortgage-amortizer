@@ -5,15 +5,15 @@ import { exportToPDF } from './lib/pdfExport';
 import { getProfiles, saveProfile, updateProfile, deleteProfile, type MortgageProfile } from './lib/storage';
 
 function App() {
-  const [purchasePrice, setPurchasePrice] = useState<number>(374900);
-  const [downPaymentPercent, setDownPaymentPercent] = useState<number>(5);
-  const [additionalFinancing, setAdditionalFinancing] = useState<number>(7941);
-  const [cmhcPstRate, setCmhcPstRate] = useState<number>(0); // No PST on this mortgage
+  const [purchasePrice, setPurchasePrice] = useState<number>(500000);
+  const [downPaymentPercent, setDownPaymentPercent] = useState<number>(20);
+  const [additionalFinancing, setAdditionalFinancing] = useState<number>(0);
+  const [cmhcPstRate, setCmhcPstRate] = useState<number>(0);
   const [amortizationYears, setAmortizationYears] = useState<number>(25);
   const [paymentFrequency, setPaymentFrequency] = useState<'monthly' | 'bi-weekly' | 'weekly' | 'accelerated-bi-weekly'>('monthly');
-  const [startDate, setStartDate] = useState<string>('2021-09-01');
+  const [startDate, setStartDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [renewalPeriods, setRenewalPeriods] = useState<RenewalPeriod[]>([
-    { startPayment: 1, annualRate: 0.0195, termYears: 5 },
+    { startPayment: 1, annualRate: 0.05, termYears: 5 },
   ]);
   const [additionalPayments, setAdditionalPayments] = useState<AdditionalPayment[]>([]);
   const [enablePrepaymentLimits, setEnablePrepaymentLimits] = useState<boolean>(false);
