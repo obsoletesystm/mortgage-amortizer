@@ -348,7 +348,6 @@ export function calculateAmortizationSchedule(
       const nextTerm = sortedPeriods[termIndex + 1];
 
       // Determine the range of payments for this term
-      const termStartPayment = term.startPayment;
       const termEndPayment = nextTerm ? nextTerm.startPayment - 1 : totalPayments;
 
       // Calculate how many payments remain in the full amortization from this point
