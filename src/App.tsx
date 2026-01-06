@@ -330,26 +330,28 @@ function App() {
           <div className={`
             fixed lg:static inset-y-0 left-0 z-50 lg:z-auto
             w-80 lg:w-auto lg:col-span-1
-            bg-gray-800 rounded-none lg:rounded-lg p-4 sm:p-6 shadow-lg
+            bg-gray-800 rounded-none lg:rounded-lg shadow-lg
             transform transition-transform duration-300 ease-in-out lg:transform-none
-            overflow-y-auto lg:overflow-visible
+            flex flex-col lg:block
             ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
           `}>
-            {/* Close button - Mobile only */}
-            <div className="flex items-center justify-between mb-4 lg:hidden">
-              <h2 className="text-xl font-semibold text-blue-300">Mortgage Details</h2>
-              <button
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-lg hover:bg-gray-700 active:bg-gray-600 touch-manipulation"
-                aria-label="Close menu"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
+            {/* Mobile: Scrollable Content Area */}
+            <div className="flex-1 overflow-y-auto lg:overflow-visible p-4 sm:p-6">
+              {/* Close button - Mobile only */}
+              <div className="flex items-center justify-between mb-4 lg:hidden">
+                <h2 className="text-xl font-semibold text-blue-300">Mortgage Details</h2>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-lg hover:bg-gray-700 active:bg-gray-600 touch-manipulation"
+                  aria-label="Close menu"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
 
-            <h2 className="hidden lg:block text-xl sm:text-2xl font-semibold mb-4 text-blue-300">Mortgage Details</h2>
+              <h2 className="hidden lg:block text-xl sm:text-2xl font-semibold mb-4 text-blue-300">Mortgage Details</h2>
 
             {/* Profile Management */}
             <div className="mb-6 p-3 sm:p-4 bg-gray-700 rounded">
@@ -558,10 +560,11 @@ function App() {
                   <option value="weekly">Weekly</option>
                 </select>
               </div>
+            </div>
 
-              <div className="pt-4 border-t border-gray-700">
-                <div className="flex justify-between items-center mb-3">
-                  <h3 className="text-lg font-semibold text-blue-300">Renewal Periods</h3>
+            <div className="pt-4 border-t border-gray-700">
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="text-lg font-semibold text-blue-300">Renewal Periods</h3>
                   <button
                     onClick={handleAddRenewalPeriod}
                     className="px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm"
@@ -800,9 +803,20 @@ function App() {
                 )}
               </div>
 
+              {/* Desktop: Calculate Button (in scrollable area) */}
               <button
                 onClick={handleCalculate}
-                className="w-full py-4 sm:py-3 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded font-semibold text-lg mt-6 touch-manipulation"
+                className="hidden lg:block w-full py-3 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded font-semibold text-lg mt-6 touch-manipulation"
+              >
+                Calculate Schedule
+              </button>
+            </div>
+
+            {/* Mobile: Fixed Footer with Calculate Button */}
+            <div className="lg:hidden border-t border-gray-700 p-4 bg-gray-800">
+              <button
+                onClick={handleCalculate}
+                className="w-full py-4 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded font-semibold text-lg touch-manipulation"
               >
                 Calculate Schedule
               </button>
